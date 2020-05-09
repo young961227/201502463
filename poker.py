@@ -10,10 +10,17 @@ class Card(metaclass=ABCMeta):
         if rank_suit[0] not in ranks or rank_suit[1] not in suits:
             raise ValueError(f'{rank_suit}: illegal card')
         self.card = rank_suit
-        
+    
     def __repr__(self):
         return self.card
-    
+    @property
+    def rank(self):
+        return self.card[0]
+
+    @property
+    def suit(self):
+        return self.card[1]
+
     @abstractmethod
     def value(self):
         """Subclasses should implement this method
@@ -44,7 +51,7 @@ class PKCard(Card):
     """Card for Poker game
     """
     VALUE={'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'T':10,'J':11,'Q':12,'K':13,'A':14}    
-    
+    values = dict(zip(ranks, range(2, 2+len(ranks))))
     
     def __init__(self, rank):
         Card.__init__(self, rank)
@@ -53,6 +60,7 @@ class PKCard(Card):
     def value(self):
         return self.point
 
+    
 
 
 if __name__ == '__main__':
@@ -60,7 +68,7 @@ if __name__ == '__main__':
     c2 = PKCard('9D')
     c3 = PKCard('9C')
     print(f'{c1} {c2} {c3}')
-
+    print(c1, c2)
     # comparison
     print(c1 > c2 == c3)
 
