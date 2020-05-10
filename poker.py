@@ -1,3 +1,6 @@
+import sys
+from enum import IntEnum
+import logging
 from abc import ABCMeta, abstractmethod
 
 suits = 'CDHS'
@@ -173,6 +176,17 @@ if __name__ == '__main__':
 
 # In[4]:
 
+class Ranking(IntEnum):
+    HIGH_CARD = 0
+    ONE_PAIR = 1 #'9H','9D',kikers other '9S', '9C' ,kikers 높은 것 중에
+    TWO_PAIRS = 2
+    THREE_OF_A_KIND = 3
+    STRAIGHT = 4
+    FLUSH = 5
+    FULL_HOUSE = 6
+    FOUR_OF_A_KIND = 7
+    STRAIGHT_FLUSH = 8
+
 
 class Hands:
     def __init__(self, cards):
@@ -281,6 +295,7 @@ class Hands:
         hand_dict = {"royal straight flush":23, "straight flush": 22,"back straight":21, "four card":20, "full house":19, "flush":18, "straight":17, "three card":16, "two pairs":15, "one pair":14,'2':1,'3':2,'4':3,'5':4,'6':5,'7':6,'8':7,'9':8,'T':9,'J':10,'Q':11,'K':12,'A':13}
         a = hand_dict[Hands.tell_hand_ranking(self)]
         return a
+        
     def detail_rank(self):
         VALUE={'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'T':10,'J':11,'Q':12,'K':13,'A':14}
         a=[]
